@@ -1,4 +1,5 @@
 @extends('admin')
+
 @section('title','Master Kontak')
 @section('content-title','Master Kontak')
 @section('content')
@@ -9,6 +10,62 @@
     <strong>{{ $message }}</strong>
 </div>
 @endif
+
+<div class="row">
+<div class="col-lg-12">  
+ <div class="card shadow mb-4">
+ <div class="card-header">
+   <h6 class="m-0 font-weight-bold text-primary"><i class="  "></i>  Jenis Kontak</h6>
+   @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    {{-- <div class="input-group mb-3 mt-3">
+        <input type="text" class="form-control" id="jenis_kontak" name="jenis_kontak">
+        <a class="btn btn-outline-secondary" href="{{ route('jkontak.store') }}">Tambah</a>
+    </div> --}}
+  
+   {{-- <input type="text" width="100px"> --}}
+   @if (auth()->user()->role==0)
+   <a href="{{ route('jkontak.create') }}" class="btn btn-outline-success" style="margin-left: 850px">Tambah Jenis Kontak</a>
+   @endif
+ </div>
+    <div class="card-body text-center">
+    <table class="table">
+             <thead>
+                 <tr>                 
+                 <th scope="col">ID</th>   
+                 <th scope="col">JENIS KONTAK</th>
+                 @if (auth()->user()->role==0)
+                 <th scope="col">ACTION</th>
+                 @endif
+                 </tr>
+             </thead>
+             @foreach($data_jkontak as $j_kontak)
+             <tr>
+                 <td> {{ $j_kontak->id }} </td> 
+                 <td> {{ $j_kontak->jenis_kontak }} </td>
+                 @if (auth()->user()->role==0)
+                 <td class="text-center">
+                    <a href="{{ route('jkontak.edit', $j_kontak->id)  }}" class="btn btn-sm btn-warning btn-circle"><i class="fas fa-edit"></i></a>
+                    <a href="{{ route('jkontak.hapus', $j_kontak->id)  }}" class="btn btn-sm btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+                 </td>
+                 @endif
+             </tr>
+             @endforeach
+    </table>
+             <div class="card-footer d-flex justify-content-end">
+                 {{ $data_jkontak->links() }}  
+             </div>
+    </div>
+ 
+</div>
+</div>
 
 <div class="row">
   <div class="col-lg-5">
