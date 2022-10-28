@@ -20,7 +20,7 @@ class ContactController extends Controller
         $data = siswa::paginate(5);
         $data_jkontak = jenis_kontak::paginate(5);
         
-        return view('mastercontact', compact('data'));
+        return view('mastercontact', compact('data', 'data_jkontak'));
     }
 
     /**
@@ -31,18 +31,11 @@ class ContactController extends Controller
     
     public function create()
     {
-        // $siswa = siswa::find($id);
-        // $j_contact = jenis_kontak::all();
-        // return view('tambahcontact', compact('siswa', 'j_contact'));
-
-    }
-    public function tambah($id)
-    {
         $siswa = siswa::find($id);
-        $j_contact = jenis_kontak::all();
-        return view('tambahcontact', compact('siswa', 'j_contact'));
-
+        $j_kontak = jenis_kontak::all();
+        return view('tambahcontact', compact('siswa', 'j_kontak'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
