@@ -29,7 +29,7 @@ class ContactController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function create()
+    public function create($id)
     {
         $siswa = siswa::find($id);
         $j_kontak = jenis_kontak::all();
@@ -44,12 +44,26 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        $kontak = new Kontak; 
-        $kontak->siswa_id = $request->siswa_id;
-        $kontak->jenis_kontak_id = $request->jenis_kontak;
-        $kontak->deskripsi = $request->deskripsi;
-        $kontak->save();
-        return redirect('mastercontact')->with('success', 'Contact Telah Ditambahkan');
+        $masage = [
+            'required' => ':attribute harus diisi',
+            'min' => ':attribute minimal :min karakter',
+            'max' => ':attribute maximal :max karakter',
+            'numeric' => ':attribute harus diisi angka',
+            'mimes' => ':attribute harus bertipe foto'
+        ];
+
+        $this->validate($request, [
+            // 'deskripsi' => 'required|min:10'
+        ], $masage);
+
+        kontak::create([
+            'siswa_id' => $request->id_siswa,
+            'jenis_kontak_id' => $request->jenis_kontak,
+            'deskripsi' => $request->deskripsi
+        ]);
+
+        Session::flash('success', "Contact berhasil ditambahkan!!");
+        return redirect('/mastercontact');
 
     }
 
@@ -75,6 +89,7 @@ class ContactController extends Controller
     {
         $kontak = kontak::find($id);
         $j_contact = jenis_kontak::all();
+        return $kontak;
         return view('editcontact', compact('kontak', 'j_contact'));
     }
 
@@ -87,18 +102,26 @@ class ContactController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $masage = [
+            'required' => ':attribute harus diisi',
+            'min' => ':attribute minimal :min karakter',
+            'max' => ':attribute maximal :max karakter',
+            'numeric' => ':attribute harus diisi angka',
+            'mimes' => ':attribute harus bertipe foto'
+        ];
+
         $this->validate($request, [
-            'jenis_kontak' => 'required',
-            'deskripsi' => 'required|max:200'
-        ]);
+            // 'nama_p' => 'required|min:7|max:30',
+            // 'deskripsi' => 'required|min:10'
+        ], $masage);
 
         $kontak = kontak::find($id);
-        $kontak->jenis_kontak_id = $request->jenis_kontak_id;
+        $kontak->jenis_kontak_id = $request->jenis_kontak;
         $kontak->deskripsi = $request->deskripsi;
 
-        Kontak::find($id)->update($request->all());
-        return redirect('/mastercontact')->with('success',
-        'Contact Telah Di Edit');
+        $kontak->save();
+        Session::flash('success', "kontak berhasil diupdate!!");
+        return redirect('mastercontact');
     }
 
     /**
@@ -115,6 +138,7 @@ class ContactController extends Controller
     public function hapus($id)
     {
         $siswa = kontak::find($id)->delete();
-        return redirect()->back()->with('success', 'Contact Berhasil Dihapus');
+        Session::flash('success', 'Contact Berhasil Dihapus');
+        return redirect('/mastercontact');
     }
 }

@@ -9,15 +9,21 @@ class kontak extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_siswa',
-        'id_jenis',
+        'siswa_id',
+        'jenis_kontak_id',
         'deskripsi'
     ];
 
     protected $table = 'jenis_kontak_siswa';
+
     public function siswa(){
-        return $this->belongsTo('app\models\siswa','id');
+        return $this->belongsTo('App\Models\siswa','id');
     }
+
+    public function kontak(){
+        return $this->belongsTo('App\Models\jenis_kontak','jenis_kontak_id');
+    }
+
     // public function kontak(){
     //     return $this->belongsTo('app\models\jenis_kontak','id_jenis');
     // }

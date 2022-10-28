@@ -6,6 +6,7 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\JKontakController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,10 +58,11 @@ Route::middleware('auth')->group(function () {
     Route::get('masterproject/{id_siswa}/hapus', [ProjectController::class, 'hapus'])->name('masterproject.hapus');
     Route::resource('masterproject', ProjectController::class);
     Route::resource('mastercontact', ContactController::class);
-    Route::get('mastercontact/create/{id_siswa}', [ContactController::class, 'tambah'])->name('mastercontact.tambah');
+    Route::get('mastercontact/create/{id_siswa}', [ContactController::class, 'create'])->name('mastercontact.create');
     Route::get('mastercontact/{id_siswa}/hapus', [ContactController::class, 'hapus'])->name('mastercontact.hapus');
     Route::resource('jkontak', JKontakController::class);
+    // Route::resource('jkontak', JKontakController::class. 'create');
     Route::get('jkontak/{id_siswa}/hapus', [JKontakController::class, 'hapus'])->name('jkontak.hapus');
-    Route::post('logout', [AuthController::class, 'logout'])->name('logout');    
+    
 
 });

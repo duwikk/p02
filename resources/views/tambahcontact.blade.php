@@ -26,7 +26,7 @@
                             <label for="jenis_kontak">Jenis Kontak</label>
                             <div class="input-group mb-3">
                                 <select class="custom-select" id="jenis_kontak" name="jenis_kontak">
-                                    @foreach ($j_contact as $kontak) 
+                                    @foreach ($j_kontak as $kontak) 
                                   <option value="{{ $kontak->id }}">{{ $kontak->jenis_kontak }}</option>
                                   @endforeach
                                 </select>

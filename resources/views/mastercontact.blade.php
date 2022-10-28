@@ -25,12 +25,7 @@
         </ul>
     </div>
     @endif
-    {{-- <div class="input-group mb-3 mt-3">
-        <input type="text" class="form-control" id="jenis_kontak" name="jenis_kontak">
-        <a class="btn btn-outline-secondary" href="{{ route('jkontak.store') }}">Tambah</a>
-    </div> --}}
-  
-   {{-- <input type="text" width="100px"> --}}
+
    @if (auth()->user()->role==0)
    <a href="{{ route('jkontak.create') }}" class="btn btn-outline-success" style="margin-left: 850px">Tambah Jenis Kontak</a>
    @endif

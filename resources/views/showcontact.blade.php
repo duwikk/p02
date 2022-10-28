@@ -5,7 +5,7 @@
     @foreach($kontak as $item)
         <div class="card mb-3">
             <div class="card-header">
-                {{-- <strong>{{ $item->nama_project }}</strong> --}}
+               
             </div>
 
             <div class="card-body">
@@ -16,14 +16,12 @@
             </div>
 
             <div class="card-footer">
-                @if (auth()->user()->role==0)    
-                <a href="{{ route('mastercontact.edit', $item->id)  }}" class="btn btn-sm btn-warning btn-circle"><i class="fas fa-edit"></i></a>
-                <a href="{{ route('mastercontact.hapus', $item->id)  }}" class="btn btn-sm btn-danger btn-circle"><i class="fas fa-trash"></i></a>
-                @endif
+                   
+                <a href="{{ route('mastercontact.edit', $item->pivot->id)  }}" class="btn btn-sm btn-warning btn-circle"><i class="fas fa-edit"></i></a>
+                <a href="{{ route('mastercontact.hapus', $item->pivot->id)  }}" class="btn btn-sm btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+                
             </div>
         </div>
         @endforeach
-        {{-- <div class="card-footer d-flex justify-content-end">
-            {{ $kontak->links() }}  
-        </div> --}}
+        
 @endif

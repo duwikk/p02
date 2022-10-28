@@ -117,7 +117,7 @@ class JKontakController extends Controller
 
             $jkontak->save();
             Session::flash('success', "data berhasil diupdate!!");
-            return redirect('master_k');
+            return redirect('mastercontact');
         //
     }
 
@@ -136,7 +136,7 @@ class JKontakController extends Controller
     {
         $siswa = jenis_kontak::find($id)->delete();
         Session::flash('success', "data berhasil dihapus!!");
-        return redirect('/master_k');
+        return redirect('/mastercontact');
         //
     }
 }
