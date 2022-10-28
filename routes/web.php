@@ -59,5 +59,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('mastercontact', ContactController::class);
     Route::get('mastercontact/create/{id_siswa}', [ContactController::class, 'tambah'])->name('mastercontact.tambah');
     Route::get('mastercontact/{id_siswa}/hapus', [ContactController::class, 'hapus'])->name('mastercontact.hapus');
+    Route::resource('jkontak', JKontakController::class);
+    Route::get('jkontak/{id_siswa}/hapus', [JKontakController::class, 'hapus'])->name('jkontak.hapus');
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');    
 
 });
